@@ -1,14 +1,13 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://imovies-app.onrender.com/api'
 });
 
+// Automatically attach JWT token to requests if available
 API.interceptors.request.use((req) => {
-  const profile = localStorage.getItem('user');
-  if (profile) {
-    const { token } = JSON.parse(profile);
-    if (token) req.headers.Authorization = `Bearer ${token}`;
+  if (localStorage.getItem('token')) {
+    req.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
   }
   return req;
 });
