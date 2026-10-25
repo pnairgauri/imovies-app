@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { createBooking, getUserBookings } = require('../controllers/bookingController');
+const { createBooking, getMyBookings } = require('../controllers/bookingController');
+const { protect } = require('../middleware/authMiddleware');
 
-router.post('/', createBooking);
-router.get('/user/:userId', getUserBookings);
+router.post('/', protect, createBooking);
+router.get('/', protect, getMyBookings);
 
 module.exports = router;
